@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TodoExploerProject.Converters"
+             x:Class="TodoExploerProject.Views.Favorites">
+       <ContentPage.Resources>
+        <converters:FavoriteIconConverter x:Key="FavoriteIconConverter"/>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="3">
+
+                <Label Text="Todo Explorer"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       TextColor="#006C70"/>
+
+                <Label Text="Manage your todos and favorites"
+                       FontSize="16"
+                       TextColor="#666666"/>
+
+            </VerticalStackLayout>
+
+            <!-- Actions -->
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="10">
+                
+                
+                <Button Grid.Column="1"
+                        Text="♥ Favorites"
+                        Command="{Binding GoBackToMainPageCommand}"
+                        BackgroundColor="White"
+                        TextColor="#006C70"
+                        BorderColor="#006C70"
+                        BorderWidth="1"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        FontAttributes="Bold"/>
+
+            </Grid>
+
+ 
+
+            <!-- Todo List Header -->
+            <Label Text="All Todos"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="#333333"
+                   Margin="0,5,0,0"/>
+
+            
+            <!-- Collection View -->
+            <CollectionView
+                ItemsSource="{Binding Todos}"
+                SelectionMode="None">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout 
+                        Orientation="Vertical"
+                        Span="2"
+                        HorizontalItemSpacing="12"
+                        VerticalItemSpacing="12"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Label Text="No todos found."
+                           FontSize="16"
+                           TextColor="#777777"
+                           HorizontalOptions="Center"
+                           Margin="0,20"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border BackgroundColor="White"
+                                Stroke="#E5E5E5"
+                                Padding="15">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  RowDefinitions="Auto,Auto,Auto"
+                                  ColumnSpacing="10"
+                                  RowSpacing="6">
+
+                                <!-- Todo description -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Todo}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#006C70"/>
+
+                                <!-- Completion status -->
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{Binding Completed, StringFormat='Completed: {0}'}"
+                                       FontSize="14"
+                                       TextColor="#555555"/>
+
+                                <!-- Todo ID -->
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="{Binding UserId, StringFormat='User ID: {0}'}"
+                                       FontSize="13"
+                                       TextColor="#777777"/>
+
+                                <!-- ~1~ Favorite @1@ -->
+                                <ImageButton Grid.Row="0"
+                                     Grid.RowSpan="3"
+                                     Grid.Column="1"
+                                     Source="{Binding IsFavorite,
+                                     Converter={StaticResource FavoriteIconConverter}}"
+                                     BackgroundColor="Transparent"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     VerticalOptions="Center"
+                                     Aspect="AspectFit"/>
+                            </Grid>
+                        </Border>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

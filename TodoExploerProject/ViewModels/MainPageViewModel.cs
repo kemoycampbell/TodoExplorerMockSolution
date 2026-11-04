@@ -10,6 +10,8 @@ public partial class MainPageViewModel:ObservableObject, IMainPageViewModel
 {
 
     private readonly ITodoService todoService;
+    private IFavoriteStorage storage;
+    private readonly INavigationService navigationService;
 
     [ObservableProperty] 
     private ObservableCollection<TodoModel> todos;
@@ -18,13 +20,18 @@ public partial class MainPageViewModel:ObservableObject, IMainPageViewModel
     private bool isLoading;
     
     
+    
     public MainPageViewModel(
         ITodoService todoService,
-        ObservableCollection<TodoModel> todos
+        ObservableCollection<TodoModel> todos,
+        IFavoriteStorage storage,
+        INavigationService navigationService
     )
     {
         this.todoService = todoService;
         this.todos = todos;
+        this.storage = storage;
+        this.navigationService = navigationService;
     }
     
     [RelayCommand]
@@ -34,12 +41,18 @@ public partial class MainPageViewModel:ObservableObject, IMainPageViewModel
         
         //toggle between true and false
         todo.IsFavorite = !todo.IsFavorite;
+        
+        //update the favorite storage
+        List<TodoModel> favorites = todos.Where(x => x.IsFavorite).ToList();
+        storage.SaveFavorites(favorites);
     }
 
     [RelayCommand]
     public async Task FavoritesNavPage()
     {
-        
+        List<TodoModel> favoriteModels = await storage.GetFavorites();
+        ObservableCollection<TodoModel> favorites = new ObservableCollection<TodoModel>(favoriteModels);
+        await this.navigationService.GoToFavorites(favorites);
     }
 
     [RelayCommand]
