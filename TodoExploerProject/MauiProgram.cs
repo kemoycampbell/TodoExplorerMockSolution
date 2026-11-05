@@ -22,6 +22,11 @@ public static class MauiProgram
         builder.Services.AddSingleton<HttpClient>();
         builder.Services.AddSingleton<ObservableCollection<TodoModel>>();
         builder.Services.AddSingleton<ITodoService, TodoService>();
+        builder.Services.AddSingleton<INavigationService, NavigationService>();
+        builder.Services.AddSingleton<IFavoriteStorage>(_ =>
+        
+            new FavoriteStorage(FileSystem.AppDataDirectory, "favorites.json")
+        );
         builder.Services.AddTransient<IMainPageViewModel, MainPageViewModel>();
         builder.Services.AddTransient<MainPage>();
 
