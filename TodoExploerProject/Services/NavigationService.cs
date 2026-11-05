@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using TodoExploerProject.Models;
+using TodoExploerProject.ViewModels;
 using TodoExploerProject.Views;
 
 namespace TodoExploerProject.Services;
@@ -18,14 +19,14 @@ public class NavigationService: INavigationService
         await this.navigation.PopAsync();
     }
 
-    public async Task GoToToDoDetail(TodoModel todoModel)
+    public async Task GoToToDoDetail(ITodoDetailViewModel viewModel)
     {
-        await this.navigation.PushAsync(new TodoDetail(todoModel));
+        await this.navigation.PushAsync(new TodoDetail(viewModel));
         
     }
 
-    public async Task GoToFavorites(ObservableCollection<TodoModel> favorites)
+    public async Task GoToFavorites(IFavoriteViewModel viewModel)
     {
-        await this.navigation.PushAsync(new Favorites(favorites));
+        await this.navigation.PushAsync(new Favorites(viewModel));
     }
 }

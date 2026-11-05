@@ -2,8 +2,128 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TodoExploerProject.Converters"
              x:Class="TodoExploerProject.Views.TodoDetail">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+
+    <ContentPage.Resources>
+        <converters:FavoriteIconConverter x:Key="FavoriteIconConverter"/>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="3">
+                <Label Text="Todo Explorer"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       TextColor="#006C70"/>
+
+                <Label Text="Manage your todo details"
+                       FontSize="16"
+                       TextColor="#666666"/>
+            </VerticalStackLayout>
+
+            <!-- Actions -->
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="10">
+
+                <Button Grid.Column="1"
+                        Text="♥ Favorites"
+                        Command="{Binding GoBackToMainPageCommand}"
+                        BackgroundColor="White"
+                        TextColor="#006C70"
+                        BorderColor="#006C70"
+                        BorderWidth="1"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        FontAttributes="Bold"/>
+            </Grid>
+
+            <!-- Todo Details -->
+            <Label Text="Todo Details"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="#333333"/>
+
+            <Border BackgroundColor="White"
+                    Stroke="#E5E5E5"
+                    Padding="20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="18">
+
+                    <!-- Todo Description -->
+                    <Label Text="{Binding SelectedTodo.Todo}"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#006C70"/>
+
+                    <BoxView HeightRequest="1"
+                             Color="#E5E5E5"/>
+
+                    <!-- Completion Status -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Completion Status"
+                               FontSize="14"
+                               TextColor="#777777"/>
+
+                        <Label Text="{Binding SelectedTodo.Completed, StringFormat='Completed: {0}'}"
+                               FontSize="16"
+                               TextColor="#333333"/>
+                    </VerticalStackLayout>
+
+                    <!-- Todo ID -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Todo ID"
+                               FontSize="14"
+                               TextColor="#777777"/>
+
+                        <Label Text="{Binding SelectedTodo.Id}"
+                               FontSize="16"
+                               TextColor="#333333"/>
+                    </VerticalStackLayout>
+
+                    <!-- User ID -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="User ID"
+                               FontSize="14"
+                               TextColor="#777777"/>
+
+                        <Label Text="{Binding SelectedTodo.UserId}"
+                               FontSize="16"
+                               TextColor="#333333"/>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1"
+                             Color="#E5E5E5"/>
+
+                    
+                    <Grid ColumnDefinitions="*,Auto"
+                          VerticalOptions="Center">
+
+                        <Label Text="Favorite"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#333333"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Grid.Column="1"
+                                     Source="{Binding SelectedTodo.IsFavorite,
+                                     Converter={StaticResource FavoriteIconConverter}}"
+                                     BackgroundColor="Transparent"
+                                     HeightRequest="35"
+                                     WidthRequest="35"
+                                     Aspect="AspectFit"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

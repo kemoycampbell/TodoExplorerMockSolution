@@ -52,47 +52,56 @@
             </Grid>
 
             <!-- Search -->
-            <!-- <Border BackgroundColor="White" -->
-            <!--         Stroke="#E0E0E0" -->
-            <!--         StrokeThickness="1" -->
-            <!--         Padding="15"> -->
-            <!-- -->
-            <!--     <Border.StrokeShape> -->
-            <!--         <RoundRectangle CornerRadius="15"/> -->
-            <!--     </Border.StrokeShape> -->
-            <!-- -->
-            <!--     <VerticalStackLayout Spacing="10"> -->
-            <!-- -->
-            <!--         <Label Text="Search Todos" -->
-            <!--                FontSize="18" -->
-            <!--                FontAttributes="Bold" -->
-            <!--                TextColor="#333333"/> -->
-            <!-- -->
-            <!--         <Entry Text="{Binding SearchText}" -->
-            <!--                Placeholder="Search todo..." -->
-            <!--                BackgroundColor="#F5F7FA"/> -->
-            <!-- -->
-            <!--         <Picker Title="Completion Status" -->
-            <!--                 SelectedItem="{Binding CompletionFilter}"> -->
-            <!-- -->
-            <!--             <Picker.Items> -->
-            <!--                 <x:String>All</x:String> -->
-            <!--                 <x:String>Completed</x:String> -->
-            <!--                 <x:String>Incomplete</x:String> -->
-            <!--             </Picker.Items> -->
-            <!-- -->
-            <!--         </Picker> -->
-            <!-- -->
-            <!--         <Button Text="Search" -->
-            <!--                 Command="{Binding FilterTodosCommand}" -->
-            <!--                 BackgroundColor="#006C70" -->
-            <!--                 TextColor="White" -->
-            <!--                 CornerRadius="10" -->
-            <!--                 HeightRequest="45"/> -->
-            <!-- -->
-            <!--     </VerticalStackLayout> -->
-            <!-- -->
-            <!-- </Border> -->
+            <Border BackgroundColor="White"
+                    Stroke="#E0E0E0"
+                    StrokeThickness="1"
+                    Padding="15">
+            
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+            
+                <VerticalStackLayout Spacing="10">
+            
+                    <Label Text="Search Todos"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#333333"/>
+            
+                    <Entry Text="{Binding SearchText}"
+                           Placeholder="Search todo..."
+                           BackgroundColor="#F5F7FA"/>
+                    
+                    <Label Text="Search User ID"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#333333"/>
+            
+                    <Entry Text="{Binding SearchUserId}"
+                           Placeholder="Search user ID..."
+                           BackgroundColor="#F5F7FA"/>
+            
+                    <Picker Title="Completion Status"
+                            SelectedItem="{Binding CompletionFilter}">
+            
+                        <Picker.Items>
+                            <x:String>All</x:String>
+                            <x:String>Completed</x:String>
+                            <x:String>Incomplete</x:String>
+                        </Picker.Items>
+            
+                    </Picker>
+            
+                    <Button Text="Search"
+                            Command="{Binding FilterTodosCommand}"
+                            BackgroundColor="#006C70"
+                            TextColor="White"
+                            CornerRadius="10"
+                            HeightRequest="45"/>
+            
+                </VerticalStackLayout>
+            
+            </Border>
 
             <!-- Todo List Header -->
             <Label Text="All Todos"
@@ -170,19 +179,39 @@
                                        FontSize="13"
                                        TextColor="#777777"/>
 
-                                <!-- ~1~ Favorite @1@ -->
-                                <ImageButton Grid.Row="0"
-                                     Grid.RowSpan="3"
-                                     Grid.Column="1"
-                                     Source="{Binding IsFavorite,
-                                     Converter={StaticResource FavoriteIconConverter}}"
-                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleFavoriteCommand}"
-                                     CommandParameter="{Binding .}"
-                                     BackgroundColor="Transparent"
-                                     HeightRequest="30"
-                                     WidthRequest="30"
-                                     VerticalOptions="Center"
-                                     Aspect="AspectFit"/>
+                                <!-- Action Icons: Favorite and Details -->
+                                <HorizontalStackLayout 
+                                    Grid.Row="0"
+                                    Grid.RowSpan="3"
+                                    Grid.Column="1"
+                                    Spacing="12"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End">
+
+                                    <!-- Favorite Icon -->
+                                    <ImageButton
+                                        Source="{Binding IsFavorite,
+                                        Converter={StaticResource FavoriteIconConverter}}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                        Path=BindingContext.ToggleFavoriteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="30"
+                                        WidthRequest="30"
+                                        Aspect="AspectFit"/>
+
+                                    <!-- Details Icon -->
+                                    <ImageButton
+                                        Source="details.png"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                        Path=BindingContext.ShowDetailsCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="30"
+                                        WidthRequest="30"
+                                        Aspect="AspectFit"/>
+
+                                </HorizontalStackLayout>
 
                             </Grid>
 

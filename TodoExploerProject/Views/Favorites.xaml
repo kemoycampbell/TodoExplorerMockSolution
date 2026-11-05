@@ -14,12 +14,12 @@
             <!-- Header -->
             <VerticalStackLayout Spacing="3">
 
-                <Label Text="Todo Explorer"
+                <Label Text="My Favorites"
                        FontSize="32"
                        FontAttributes="Bold"
                        TextColor="#006C70"/>
 
-                <Label Text="Manage your todos and favorites"
+                <Label Text="View your favorite todos"
                        FontSize="16"
                        TextColor="#666666"/>
 
@@ -31,8 +31,8 @@
                 
                 
                 <Button Grid.Column="1"
-                        Text="♥ Favorites"
-                        Command="{Binding GoBackToMainPageCommand}"
+                        Text="Back to Todo Lists"
+                        Command="{Binding  GoBackToMainPageCommand}"
                         BackgroundColor="White"
                         TextColor="#006C70"
                         BorderColor="#006C70"

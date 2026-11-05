@@ -27,6 +27,9 @@ public static class MauiProgram
         
             new FavoriteStorage(FileSystem.AppDataDirectory, "favorites.json")
         );
+        
+        builder.Services.AddTransient<ITodoDetailViewModel, TodoDetailViewModel>();
+        builder.Services.AddTransient<IFavoriteViewModel, FavoriteViewModel>();
         builder.Services.AddTransient<IMainPageViewModel, MainPageViewModel>();
         builder.Services.AddTransient<MainPage>();
 
